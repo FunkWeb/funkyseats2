@@ -24,7 +24,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Lokasjoner</a>
                         <a class="dropdown-item" href="#">Ressurser</a>
-                        <a class="dropdown-item" href="#">Brukere</a>
+                        <a class="dropdown-item" href="{{ route('users.index') }}">Brukere</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Logg</a>
                     </div>

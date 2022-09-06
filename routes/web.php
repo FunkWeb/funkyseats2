@@ -35,3 +35,9 @@ Route::group(['middleware' => 'auth'], function() {
         return view('welcome');
     })->name('home');
 });
+
+/**
+ * Admin routes, for users with administrator roles
+ */
+
+Route::get('admin/users', [\App\Http\Controllers\Backend\UserController::class, 'index'])->name('users.index');
