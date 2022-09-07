@@ -22,6 +22,8 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">Administrasjon</a>
                     <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Oversikt</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Lokasjoner</a>
                         <a class="dropdown-item" href="#">Ressurser</a>
                         <a class="dropdown-item" href="{{ route('users.index') }}">Brukere</a>
@@ -39,7 +41,7 @@
                         Logg ut
                     </button>
                 </form>
-            </div class="d-flex">
+            </div>
         </div>
     </div>
 </nav>

@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'email' => fake()->safeEmail(),
             'social_id' => Str::random(21),
             'social_type' => 'google',
-            'avatar_path' => 'https://path/to/img.png',
+            'avatar_path' => 'https://www.gravatar.com/avatar/' . md5(fake()->email()),
             'last_active_at' => now(),
             'remember_token' => Str::random(10),
         ];

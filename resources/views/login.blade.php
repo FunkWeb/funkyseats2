@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<div class="container mt-4 col-3 d-flex align-items-center">
+<div class="container mt-4 col-lg-3 col-md-4 col-sm-6 d-flex align-items-center">
     <div class="card">
         <div class="card-body text-center">
             <h4>{{ config('app.name') }}</h4>

@@ -6,17 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ asset('css/style/united.min.css') }}">
+    <script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
     @stack('head')
 </head>
 
 <body class="antialiased">
 
 @include('layout.navbar')
+<div class="container mt-3">
 
-{{ $slot }}
+    {{ $slot }}
+
+</div>
 
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/jquery-3.6.1.min.js') }}"></script>
 @stack('scripts')
 </body>
 </html>
