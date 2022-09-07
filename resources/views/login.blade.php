@@ -14,14 +14,18 @@
     <div class="card">
         <div class="card-body text-center">
             <h4>{{ config('app.name') }}</h4>
-            <div class="my-4">All bruk av denne tjenesten krever at du er pålogget med din konto hos FunkWeb.</div>
+            <div class="my-4">All bruk av denne tjenesten krever at du er pålogget med din konto
+                hos {{ config('company.name') }}.
+            </div>
             <a class="btn btn-outline-dark" role="button" style="text-transform:none"
                href="{{ route('google.login') }}">
                 <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
                      src="{{ asset('img/g-logo.png') }}"/>
                 Logg på med Google
             </a>
-            <div class="mt-4">For spørsmål, vennligst kontakt IT-ansvarlig.</div>
+            <div class="mt-4">For spørsmål, vennligst kontakt {{ config('company.contact.person') }} på
+                epost <a href="mailto:{{ config('company.contact.email') }}">{{ config('company.contact.email') }}</a>.
+            </div>
         </div>
     </div>
 </div>
