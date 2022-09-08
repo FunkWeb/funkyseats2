@@ -41,3 +41,6 @@ Route::group(['middleware' => 'auth'], function() {
  */
 
 Route::get('admin/users', [\App\Http\Controllers\Backend\UserController::class, 'index'])->name('users.index');
+
+
+Route::get('users/{user}', [\App\Http\Controllers\Backend\UserController::class, 'show'])->name('users.show');

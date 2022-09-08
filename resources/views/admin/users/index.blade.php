@@ -16,7 +16,7 @@
                 <th scope="row">
                     <img src="{{ $user->avatar_path }}" alt="Profile picture" class="rounded me-2"
                          style="width:50px; height:50px">
-                    <a href="#">{{ $user->name }}</a>
+                    <a href="{{ route('users.show', $user) }}">{{ $user->name }}</a>
                 </th>
                 <td class="align-middle">{{ $user->email }}</td>
                 <td class="align-middle">{{ $user->last_active_at }}</td>

@@ -10,11 +10,14 @@ class UserController extends Controller
 {
     public function index()
     {
-//        return User::whereNull('anonymized_at')->orderBy('name')->get();
-
         return view('admin.users.index',
         [
             'users' => User::whereNull('anonymized_at')->orderBy('name')->get(),
         ]);
+    }
+
+    public function show(User $user)
+    {
+        return view('admin.users.show', ['user' => $user]);
     }
 }
