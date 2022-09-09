@@ -16,13 +16,13 @@
                     <a class="nav-link" href="#">Reservér</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Min Profil</a>
+                    <a class="nav-link" href="{{ route('users.show', auth()->user()) }}">Min Profil</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">Administrasjon</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Oversikt</a>
+                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Oversikt</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Lokasjoner</a>
                         <a class="dropdown-item" href="#">Ressurser</a>
