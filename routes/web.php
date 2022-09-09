@@ -62,6 +62,10 @@ Route::group(['middleware' => 'role:admin'], function () {
         ->name('admin.resources.create');
     Route::post('admin/location/{location}/resource', [\App\Http\Controllers\Backend\ResourceController::class, 'store'])
         ->name('admin.resources.store');
+    Route::get('admin/location/{location}/resource/{resource}/edit', [\App\Http\Controllers\Backend\ResourceController::class, 'edit'])
+        ->name('admin.resources.edit');
+    Route::patch('admin/location/{location}/resource/{resource}', [\App\Http\Controllers\Backend\ResourceController::class, 'update'])
+        ->name('admin.resources.update');
 
     Route::get('users/{user}', [\App\Http\Controllers\Backend\UserController::class, 'show'])->name('users.show');
 });

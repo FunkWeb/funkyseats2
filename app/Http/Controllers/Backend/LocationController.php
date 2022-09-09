@@ -15,7 +15,7 @@ class LocationController extends Controller
     public function index()
     {
         return view('admin.locations.index', [
-            'locations' => Location::orderBy('name')->get(),
+            'locations' => Location::orderBy('name')->withCount('resources')->get(),
         ]);
     }
 

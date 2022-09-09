@@ -21,7 +21,7 @@ class Resource extends Model
 
     public function type()
     {
-        return $this->belongsTo(ResourceType::class);
+        return $this->belongsTo(ResourceType::class, 'resource_type_id');
     }
 
     public function getStatusAttribute()

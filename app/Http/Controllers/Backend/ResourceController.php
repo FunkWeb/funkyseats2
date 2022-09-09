@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Resource;
+use App\Models\ResourceType;
 use Illuminate\Http\Request;
 
 class ResourceController extends Controller
@@ -17,49 +18,84 @@ class ResourceController extends Controller
      */
     public function create(Location $location)
     {
-        $resource = new Resource();
-
-        return view('admin.resources.create')->with(compact('location', 'resource'));
+        return view('admin.resources.create', [
+            'location' => $location,
+            'resource' => new Resource(),
+            'resource_types' => ResourceType::orderBy('name')->get(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Location $location
+     * @return \Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, Location $location)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+            'type_id' => ['required'],
+        ]);
+
+        Resource::create([
+            'name' => $request->name,
+            'location_id' => $location->id,
+            'description' => $request->description,
+            'active' => true,
+            'resource_type_id' => $request->type_id
+        ]);
+
+        return redirect(route('admin.locations.show', $location));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Location $location
+     * @param Resource $resource
      * @return \Illuminate\Http\Response
      */
     public function edit(Location $location, Resource $resource)
     {
-        //
+        return view('admin.resources.edit', [
+            'location' => $location,
+            'resource' => $resource,
+            'resource_types' => ResourceType::orderBy('name')->get(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param Location $location
+     * @param Resource $resource
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Location $location, Resource $resource)
     {
-        //
+        $request->validate([
+            'name' => ['required'],
+            'type_id' => ['required'],
+        ]);
+
+        $resource->update([
+            'name' => $request->name,
+            'location_id' => $location->id,
+            'description' => $request->description,
+            'active' => $request->active ? true:false,
+            'resource_type_id' => $request->type_id
+        ]);
+
+        return redirect(route('admin.locations.show', $location));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Resource $resource
      * @return \Illuminate\Http\Response
      */
     public function destroy(Resource $resource)

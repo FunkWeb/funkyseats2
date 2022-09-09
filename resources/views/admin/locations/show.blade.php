@@ -20,14 +20,14 @@
         <tbody>
         @foreach($resources as $resource)
         <tr>
-            <th>{{ $resource->name }}</th>
-            <th>{{ $resource->type->name }}</th>
-            <th>{{ $resource->status }}</th>
-            <th>
-                <a href="#">Editér</a>
+            <td>{{ $resource->name }}</td>
+            <td>{{ $resource->type->name }}</td>
+            <td>{{ $resource->status }}</td>
+            <td>
+                <a href="{{ route('admin.resources.edit', [$location, $resource]) }}">Editér</a>
                 <a href="#">Deaktiver</a>
                 <a href="#">Slett</a>
-            </th>
+            </td>
         </tr>
         @endforeach
         </tbody>
