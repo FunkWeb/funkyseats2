@@ -25,7 +25,6 @@
             <td>{{ $resource->status }}</td>
             <td>
                 <a href="{{ route('admin.resources.edit', [$location, $resource]) }}">Editér</a>
-                <a href="#">Deaktiver</a>
                 <a href="#">Slett</a>
             </td>
         </tr>

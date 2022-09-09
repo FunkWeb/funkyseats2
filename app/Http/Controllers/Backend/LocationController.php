@@ -61,7 +61,7 @@ class LocationController extends Controller
     {
         return view('admin.locations.show', [
             'location' => $location,
-            'resources' => $location->resources,
+            'resources' => $location->resources->sortBy('name', SORT_NATURAL),
         ]);
     }
 
