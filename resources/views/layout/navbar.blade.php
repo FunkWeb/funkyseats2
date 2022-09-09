@@ -24,9 +24,9 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Oversikt</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Lokasjoner</a>
+                        <a class="dropdown-item" href="{{ route('admin.locations.index') }}">Lokasjoner</a>
                         <a class="dropdown-item" href="#">Ressurser</a>
-                        <a class="dropdown-item" href="{{ route('users.index') }}">Brukere</a>
+                        <a class="dropdown-item" href="{{ route('admin.users.index') }}">Brukere</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Logg</a>
                     </div>

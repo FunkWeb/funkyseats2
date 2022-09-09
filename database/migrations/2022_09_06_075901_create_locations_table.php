@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->foreignId('location_type_id');
             $table->softDeletes();
             $table->timestamps();
         });
