@@ -19,7 +19,7 @@ class GoogleController extends Controller
 
     public function googleCallback()
     {
-        $redirectAddress = Session::get('redirect') ?? "/";
+        $redirectAddress = Session::get('redirect') ?? route('home');
 
         $google_user = Socialite::driver('google')->user();
 

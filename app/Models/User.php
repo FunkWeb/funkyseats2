@@ -40,4 +40,19 @@ class User extends Authenticatable
         'last_active_at' => 'datetime',
         'anonymized_at' => 'datetime',
     ];
+
+    /**
+     * Anonymizes the current user
+     *
+     * @return void
+     */
+    public function anonymize(): void
+    {
+        $this->update([
+            'name' => null,
+            'email' => null,
+            'avatar_path' => null,
+            'anonymized_at' => now(),
+        ]);
+    }
 }
