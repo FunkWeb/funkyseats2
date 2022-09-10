@@ -36,6 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('togglecheckin', [\App\Http\Controllers\CheckinController::class, 'toggle'])
         ->name('checkin');
+
+    Route::get('book/{location}/{date?}', [\App\Http\Controllers\BookingController::class, 'index'])
+        ->name('booking.index');
 });
 
 /**

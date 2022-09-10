@@ -12,8 +12,12 @@
                         <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Reservér</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">Reservér</a>
+                    <div class="dropdown-menu">
+
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('users.show', auth()->user()) }}">Min Profil</a>
@@ -36,9 +40,9 @@
                 <form action="{{ route('checkin') }}" method="post">
                     @csrf
                     @if(auth()->user()->checked_in)
-                        <button class="btn btn-success mx-2 my-2 my-sm-0" type="submit">Sjekk ut</button>
+                        <button class="btn btn-danger mx-2 my-2 my-sm-0" type="submit">Sjekk ut</button>
                     @else
-                        <button class="btn btn-danger mx-2 my-2 my-sm-0" type="submit">Sjekk inn</button>
+                        <button class="btn btn-success mx-2 my-2 my-sm-0" type="submit">Sjekk inn</button>
                     @endif
                 </form>
                 <form action="{{ route('logout') }}" method="post">

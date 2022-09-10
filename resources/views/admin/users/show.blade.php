@@ -6,7 +6,11 @@
         <div class="col-sm">
             <div class="display-5">{{ $user->name }}</div>
             <div>Siste aktivitet var {{ $user->last_active_at->diffForHumans() }}, er for øyeblikket
-                <span class="text-success fw-semibold">sjekket inn</span>.
+                @if($user->checked_in)
+                    <span class="text-success fw-semibold">sjekket inn</span>.
+                @else
+                    <span class="text-warning fw-semibold">sjekket ut</span>.
+                @endif
             </div>
         </div>
     </div>

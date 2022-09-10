@@ -12,7 +12,7 @@ class Resource extends Model
 
     protected $guarded = [];
 
-    protected $with = ['type'];
+    protected $with = ['type', 'bookings'];
 
     public function location()
     {
@@ -22,6 +22,11 @@ class Resource extends Model
     public function type()
     {
         return $this->belongsTo(ResourceType::class, 'resource_type_id');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 
     public function getStatusAttribute()
