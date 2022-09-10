@@ -10,6 +10,6 @@ class CheckinController extends Controller
     {
         auth()->user()->toggleCheckin();
 
-        return redirect()->back();
+        return back();
     }
 }

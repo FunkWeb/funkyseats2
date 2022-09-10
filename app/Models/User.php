@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\CanCheckin;
+use App\Traits\CanMakeReservations;
 use App\Traits\HasRoles;
 use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,12 +16,12 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
-    use HasRoles, CanCheckin;
+    use HasRoles, CanCheckin, CanMakeReservations;
 
     /**
      * Disable Mass Assignment protection
      *
-     * @vare array
+     * @var array
      */
     protected $guarded = [];
 
