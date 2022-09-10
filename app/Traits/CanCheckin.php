@@ -17,11 +17,11 @@ trait CanCheckin
     {
         $checkin = $this->latest_checkin();
 
-        if(!$checkin) {
+        if (!$checkin) {
             return false;
         }
 
-        if($checkin->checkout_at) {
+        if ($checkin->checkout_at) {
             return false;
         }
 
@@ -36,28 +36,35 @@ trait CanCheckin
         /*
          * If no checkin exists, check in user
          */
-        if(!$checkin) {
+        if (!$checkin) {
+            flash()->success('Du er nå sjekket inn.');
+
             return $this->check_in();
         }
 
         /*
          * If previous checkin was checked out, create a new checkin record
          */
-        if($checkin->checkout_at) {
+        if ($checkin->checkout_at) {
+            flash()->success('Du er nå sjekket inn.');
+
             return $this->check_in();
         }
 
         /*
          * If user checked in less than five minutes ago, just delete the chekin
          */
-        if($checkin->checkin_at > Carbon::now()->subMinutes(5))
-        {
-            $checkin->delete();
+        if ($checkin->checkin_at > Carbon::now()->subMinutes(5)) {
+            flash()->warning('Du sjekket inn for mindre enn fem minutter siden. Oppføringen ble slettet.');
+
+            return $checkin->delete();
         }
 
         /*
          * Check out the user
          */
+        flash()->success('Du er nå sjekket ut.');
+
         return $this->check_out();
     }
 

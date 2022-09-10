@@ -15,6 +15,8 @@
 @include('layout.navbar')
 <div class="container mt-3">
 
+    <x-messages></x-messages>
+
     {{ $slot }}
 
 </div>
