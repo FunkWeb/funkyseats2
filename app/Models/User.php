@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\CanCheckin;
 use App\Traits\HasRoles;
 use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,8 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasRoles, CanCheckin;
 
     /**
      * Disable Mass Assignment protection

@@ -5,7 +5,7 @@
         </div>
         <div class="col-sm">
             <div class="display-5">{{ $user->name }}</div>
-            <div>Siste aktivitet for x timer siden, er for øyeblikket
+            <div>Siste aktivitet var {{ $user->last_active_at->diffForHumans() }}, er for øyeblikket
                 <span class="text-success fw-semibold">sjekket inn</span>.
             </div>
         </div>

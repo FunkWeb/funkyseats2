@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
         return view('welcome');
     })->name('home');
+
+    Route::post('togglecheckin', [\App\Http\Controllers\CheckinController::class, 'toggle'])
+        ->name('checkin');
 });
 
 /**

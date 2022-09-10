@@ -33,8 +33,14 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <button class="btn btn-danger mx-2 my-2 my-sm-0" type="submit">Sjekk inn</button>
-                <button class="btn btn-success mx-2 my-2 my-sm-0" type="submit">Sjekk ut</button>
+                <form action="{{ route('checkin') }}" method="post">
+                    @csrf
+                    @if(auth()->user()->checked_in)
+                        <button class="btn btn-success mx-2 my-2 my-sm-0" type="submit">Sjekk ut</button>
+                    @else
+                        <button class="btn btn-danger mx-2 my-2 my-sm-0" type="submit">Sjekk inn</button>
+                    @endif
+                </form>
                 <form action="{{ route('logout') }}" method="post">
                     @csrf
                     <button class="btn btn-info my-2 my-sm-0" type="submit">
