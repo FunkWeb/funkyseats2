@@ -18,6 +18,9 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('admin.users.show', ['user' => $user]);
+        return view('admin.users.show', [
+            'user' => $user,
+            'latest_checkins' => $user->checkins()->latest()->limit(10)->get(),
+        ]);
     }
 }

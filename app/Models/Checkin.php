@@ -11,8 +11,22 @@ class Checkin extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'checkin_at' => 'datetime',
+        'checkout_at' => 'datetime'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getTotalTimeAttribute()
+    {
+        if (!$this->checkout_at) {
+            return null;
+        }
+
+        return $this->checkout_at->diffInMinutes($this->checkin_at);
     }
 }

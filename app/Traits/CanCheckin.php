@@ -43,6 +43,15 @@ trait CanCheckin
         }
 
         /*
+         * If user checked out less than five minutes ago and checks in again, remove the checkout time instead
+         */
+        if ($checkin->checkout_at > Carbon::now()->subMinutes(5)) {
+            flash()->warning('Du sjekket ut for mindre enn fem minutter siden, du ble sjekket inn igjen');
+
+            return $checkin->update(['checkout_at' => null]);
+        }
+
+        /*
          * If previous checkin was checked out, create a new checkin record
          */
         if ($checkin->checkout_at) {
@@ -52,7 +61,7 @@ trait CanCheckin
         }
 
         /*
-         * If user checked in less than five minutes ago, just delete the chekin
+         * If user checked in less than five minutes ago, just delete the checkin
          */
         if ($checkin->checkin_at > Carbon::now()->subMinutes(5)) {
             flash()->warning('Du sjekket inn for mindre enn fem minutter siden. Oppføringen ble slettet.');
