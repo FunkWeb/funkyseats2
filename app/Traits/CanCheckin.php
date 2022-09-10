@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Checkin;
+use Carbon\Carbon;
 
 trait CanCheckin
 {
@@ -32,14 +33,31 @@ trait CanCheckin
     {
         $checkin = $this->latest_checkin();
 
+        /*
+         * If no checkin exists, check in user
+         */
         if(!$checkin) {
             return $this->check_in();
         }
 
+        /*
+         * If previous checkin was checked out, create a new checkin record
+         */
         if($checkin->checkout_at) {
             return $this->check_in();
         }
 
+        /*
+         * If user checked in less than five minutes ago, just delete the chekin
+         */
+        if($checkin->checkin_at > Carbon::now()->subMinutes(5))
+        {
+            $checkin->delete();
+        }
+
+        /*
+         * Check out the user
+         */
         return $this->check_out();
     }
 
