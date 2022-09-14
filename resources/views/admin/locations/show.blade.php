@@ -19,15 +19,17 @@
         </thead>
         <tbody>
         @foreach($resources as $resource)
-        <tr>
-            <td>{{ $resource->name }}</td>
-            <td>{{ $resource->type->name }}</td>
-            <td>{{ $resource->status }}</td>
-            <td>
-                <a href="{{ route('admin.resources.edit', [$location, $resource]) }}">Editér</a>
-                <a href="#">Slett</a>
-            </td>
-        </tr>
+            <tr>
+                <td>{{ $resource->name }}</td>
+                <td>{{ $resource->type->name }}</td>
+                <td>{{ $resource->status }}</td>
+                <td>
+                    <a href="{{ route('admin.resources.edit', [$location, $resource]) }}">Editér</a>
+
+
+                    <a href="#">Slett</a>
+                </td>
+            </tr>
         @endforeach
         </tbody>
     </table>

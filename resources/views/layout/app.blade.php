@@ -12,10 +12,10 @@
 
 <body class="antialiased">
 
-<x-navbar></x-navbar>
+<x-navbar />
 <div class="container mt-3">
 
-    <x-messages></x-messages>
+    <x-messages />
 
     {{ $slot }}
 

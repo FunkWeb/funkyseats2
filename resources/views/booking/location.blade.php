@@ -1,15 +1,25 @@
 <x-app-layout>
 
-    <h3>Reserver en plass i {{ $location->name }}</h3>
-    <h4>Dato: {{ $date }}</h4>
+    <h3>Reserver en plass i {{ $location->name }} - {{ $date }}</h3>
 
     <p>{{ $location->description }}</p>
 
-    <p>For å reservere en plass, trykk på knappen "Reserver". For å avbooke en reservert plass, trykk på knappen
+    <p class="text-muted">For å reservere en plass, trykk på knappen "Reserver". For å avbooke en reservert plass, trykk på knappen
         igjen.</p>
 
     <div class="form-group">
         Velg dato:
+        <ul>
+            @foreach($nextdays as $selectdate)
+                <li>
+                    <a
+                        @if($selectdate[0] == $date)
+                            class="fw-bold"
+                        @endif
+                        href="{{ route('booking.index', [$location, $selectdate[0]]) }}">{{ $selectdate[1] }}</a>
+                </li>
+            @endforeach
+        </ul>
     </div>
 
     <table class="table table-striped">
@@ -17,8 +27,9 @@
         <tr>
             <th>Plass</th>
             <th class="d-none d-lg-table-cell">Beskrivelse</th>
-            <th>Tilgjengelig 0830-1200</th>
-            <th>Tilgjengelig 1200-1530</th>
+            <th class="text-center">0830-1200</th>
+            <th class="text-center">1200-1530</th>
+            <th class="text-center">Hele dagen</th>
         </tr>
         </thead>
         <tbody>
@@ -28,20 +39,28 @@
                 <td class="d-none d-lg-table-cell">{{ $resource->description }}</td>
                 <td>
                     @if($resource->active)
-                    <form>
-                        @csrf
-
-                        <button class="btn btn-info w-100">Reserver</button>
-                    </form>
+                        <form method="post">
+                            @csrf
+                            <button class="btn btn-info w-100">Reserver</button>
+                        </form>
                     @else
                         <button class="btn btn-warning w-100 disabled">Ikke tilgjengelig</button>
                     @endif
                 </td>
                 <td>
                     @if($resource->active)
-                        <form>
+                        <form method="post">
                             @csrf
-
+                            <button class="btn btn-info w-100">Reserver</button>
+                        </form>
+                    @else
+                        <button class="btn btn-warning w-100 disabled">Ikke tilgjengelig</button>
+                    @endif
+                </td>
+                <td>
+                    @if($resource->active)
+                        <form method="post">
+                            @csrf
                             <button class="btn btn-info w-100">Reserver</button>
                         </form>
                     @else
@@ -53,5 +72,4 @@
         </tbody>
 
     </table>
-
 </x-app-layout>
