@@ -13,7 +13,7 @@
     </li>
     <li class="list-group-item">
         <span class="fw-semibold">Siste aktivitet:</span><br>
-        {{ $user->last_active_at->diffForHumans() }}
+        {{ $user->last_online }}
     </li>
     <li class="list-group-item">
         <span class="fw-semibold">Tid sjekket inn siste 7 dager:</span><br>

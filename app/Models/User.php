@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -58,5 +59,14 @@ class User extends Authenticatable
             'remember_token' => null,
             'anonymized_at' => now(),
         ]);
+    }
+
+    public function getLastOnlineAttribute()
+    {
+        if(Cache::has('user-last-activity-'. $this->id)) {
+            return Cache::get('user-last-activity-'. $this->id)->diffForHumans();
+        }
+
+        return 'Mangler informasjon.';
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class UserActivity
 {
@@ -17,7 +19,8 @@ class UserActivity
     public function handle(Request $request, Closure $next)
     {
         if(auth()->check()) {
-            auth()->user()->update(['last_active_at' => now()]);
+            Cache::put('user-last-activity-'. auth()->id(), Carbon::now());
+//            auth()->user()->update(['last_active_at' => now()]);
         }
 
         return $next($request);
