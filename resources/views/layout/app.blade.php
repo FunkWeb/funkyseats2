@@ -12,7 +12,7 @@
 
 <body class="antialiased">
 
-@include('layout.navbar')
+<x-navbar></x-navbar>
 <div class="container mt-3">
 
     <x-messages></x-messages>

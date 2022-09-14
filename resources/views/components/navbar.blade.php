@@ -16,7 +16,9 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                        aria-haspopup="true" aria-expanded="false">Reservér</a>
                     <div class="dropdown-menu">
-
+                        @foreach($locations as $location)
+                            <a class="dropdown-item" href="{{ route('booking.index', $location) }}">{{ $location->name }}</a>
+                        @endforeach
                     </div>
                 </li>
                 <li class="nav-item">
