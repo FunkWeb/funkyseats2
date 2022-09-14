@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Checkin;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 trait CanCheckin
 {
@@ -15,17 +16,7 @@ trait CanCheckin
 
     public function getCheckedInAttribute(): bool
     {
-        $checkin = $this->latest_checkin();
-
-        if (!$checkin) {
-            return false;
-        }
-
-        if ($checkin->checkout_at) {
-            return false;
-        }
-
-        return true;
+        return Cache::has('user-checkin-' . $this->id);
     }
 
 
@@ -89,6 +80,9 @@ trait CanCheckin
 
     private function check_in()
     {
+        $expiresAt = Carbon::now()->addHours(10);
+        Cache::put('user-checkin-' . $this->id, true, $expiresAt);
+
         return $this->checkins()->create([
             'checkin_at' => now(),
         ]);
@@ -96,6 +90,8 @@ trait CanCheckin
 
     private function check_out($forced = null)
     {
+        Cache::forget('user-checkin-' . $this->id);
+
         return $this->latest_checkin()->update([
             'checkout_at' => now(),
             'forced_checkout' => $forced
