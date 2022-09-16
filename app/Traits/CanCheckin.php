@@ -19,7 +19,6 @@ trait CanCheckin
         return Cache::has('user-checkin-' . $this->id);
     }
 
-
     public function toggleCheckin()
     {
         $checkin = $this->latest_checkin();
@@ -37,6 +36,8 @@ trait CanCheckin
          * If user checked out less than five minutes ago and checks in again, remove the checkout time instead
          */
         if ($checkin->checkout_at > Carbon::now()->subMinutes(5)) {
+            $this->setCheckedIn();
+
             flash()->warning('Du sjekket ut for mindre enn fem minutter siden, du ble sjekket inn igjen');
 
             return $checkin->update(['checkout_at' => null]);
@@ -55,6 +56,8 @@ trait CanCheckin
          * If user checked in less than five minutes ago, just delete the checkin
          */
         if ($checkin->checkin_at > Carbon::now()->subMinutes(5)) {
+            $this->setCheckedOut();
+
             flash()->warning('Du sjekket inn for mindre enn fem minutter siden. Oppføringen ble slettet.');
 
             return $checkin->delete();
@@ -80,8 +83,7 @@ trait CanCheckin
 
     private function check_in()
     {
-        $expiresAt = Carbon::now()->addHours(10);
-        Cache::put('user-checkin-' . $this->id, true, $expiresAt);
+        $this->setCheckedIn();
 
         return $this->checkins()->create([
             'checkin_at' => now(),
@@ -90,12 +92,24 @@ trait CanCheckin
 
     private function check_out($forced = null)
     {
-        Cache::forget('user-checkin-' . $this->id);
+        $this->setCheckedOut();
 
         return $this->latest_checkin()->update([
             'checkout_at' => now(),
             'forced_checkout' => $forced
         ]);
+    }
+
+    private function setCheckedIn($hours = 10)
+    {
+        $expiresAt = Carbon::now()->addHours($hours);
+
+        Cache::put('user-checkin-' . $this->id, true, $expiresAt);
+    }
+
+    private function setCheckedOut()
+    {
+        Cache::forget('user-checkin-' . $this->id);
     }
 
 }
