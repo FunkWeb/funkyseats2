@@ -12,5 +12,9 @@ trait CanMakeReservations
         return $this->hasMany(Booking::class);
     }
 
+    public function getCurrentReservationAttribute()
+    {
+        
+    }
 
 }
