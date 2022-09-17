@@ -1,6 +1,6 @@
 <h4>Siste innsjekkinger <small>(maks 10)</small>:</h4>
 
-@if(!$latest_checkins)
+@if($latest_checkins->count() == 0)
     {{ $user->name }} har ikke sjekket inn enda.
 @else
     <table class="table table-striped">
