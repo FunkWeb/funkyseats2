@@ -10,6 +10,7 @@
             <th>Sjekket inn kl.</th>
             <th>Sjekket ut kl.</th>
             <th>Total tid innsjekket</th>
+            <th>Handlinger</th>
         </tr>
         </thead>
         <tbody>
@@ -20,7 +21,12 @@
                     </span></td>
                 <td>{{ $checkin->checkin_at->format('H:i') }}</td>
                 <td>{{ $checkin->checkout_at ? $checkin->checkout_at->format('H:i') : '' }}</td>
-                <td>{{ $checkin->total_time }}</td>
+                <td>{{ intdiv($checkin->total_time, 60).':'. ($checkin->total_time % 60)  }}</td>
+                <td>
+                    @if(!$checkin->checkout_at)
+                        <button type="submit" class="btn btn-warning">Sjekk ut</button>
+                    @endif
+                </td>
             </tr>
         @endforeach
         </tbody>

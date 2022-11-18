@@ -41,7 +41,7 @@
                     @if($resource->active)
                         <form method="post">
                             @csrf
-                            <button class="btn btn-info w-100">Reserver</button>
+                            <button class="btn btn-success w-100">Reserver</button>
                         </form>
                     @else
                         <button class="btn btn-warning w-100 disabled">Ikke tilgjengelig</button>
@@ -51,7 +51,7 @@
                     @if($resource->active)
                         <form method="post">
                             @csrf
-                            <button class="btn btn-info w-100">Reserver</button>
+                            <button class="btn btn-success w-100">Reserver</button>
                         </form>
                     @else
                         <button class="btn btn-warning w-100 disabled">Ikke tilgjengelig</button>
@@ -61,7 +61,7 @@
                     @if($resource->active)
                         <form method="post">
                             @csrf
-                            <button class="btn btn-info w-100">Reserver</button>
+                            <button class="btn btn-success w-100">Reserver</button>
                         </form>
                     @else
                         <button class="btn btn-warning w-100 disabled">Ikke tilgjengelig</button>
