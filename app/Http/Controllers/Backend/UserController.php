@@ -21,6 +21,7 @@ class UserController extends Controller
         return view('admin.users.show', [
             'user' => $user,
             'latest_checkins' => $user->checkins()->latest()->limit(10)->get(),
+            'activities' => $user->activities()->latest()->paginate(20),
         ]);
     }
 }

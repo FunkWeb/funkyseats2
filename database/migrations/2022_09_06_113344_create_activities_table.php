@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->nullableMorphs('subject');
-            $table->string('action');
+            $table->string('subject_type');
+            $table->unsignedBigInteger('subject_id');
+            $table->string('type');
             $table->text('changes')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

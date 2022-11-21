@@ -6,66 +6,72 @@ use App\Models\Activity;
 
 trait RecordsActivity
 {
-    /**
-     * The project's old attributes.
-     *
-     * @var array
-     */
-    public $oldAttributes = [];
 
     /**
      * Boot the trait.
      */
-    public static function bootRecordsActivity()
+    protected static function bootRecordsActivity()
     {
-        foreach (self::recordableEvents() as $event) {
-            static::$event(function ($model) use ($event) {
-                $model->recordActivity($model->activityDescription($event));
-            });
+        if (auth()->guest()) return;
 
-            if ($event === 'updated') {
-                static::updating(function ($model) {
-                    $model->oldAttributes = $model->getOriginal();
-                });
-            }
+        foreach (static::getActivitiesToRecord() as $event) {
+            static::$event(function ($model) use ($event) {
+                $model->recordActivity($event);
+            });
         }
+
+        static::deleting(function ($model) {
+            $model->activity()->delete();
+        });
+
+//        static::restoring(function ($model) {
+//            $model->activity()->restore();
+//        });
     }
 
     /**
-     * Fetch the model events that should trigger activity.
+     * Fetch all model events that require activity recording.
      *
      * @return array
      */
-    protected static function recordableEvents()
+    protected static function getActivitiesToRecord()
     {
-        if (isset(static::$recordableEvents)) {
-            return static::$recordableEvents;
-        }
-
-        return ['created', 'updated'];
+        return ['created'];
     }
 
     /**
-     * Record activity.
+     * Record new activity for the model.
      *
-     * @param string $description
+     * @param string $event
      */
-    public function recordActivity($description)
+    protected function recordActivity($event)
     {
         $this->activity()->create([
             'user_id' => auth()->id(),
-            'description' => $description,
-            'changes' => $this->activityChanges(),
+            'type' => $this->getActivityType($event)
         ]);
     }
 
     /**
-     * The activity feed
+     * Fetch the activity relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function activity()
     {
-        return $this->morphMany(Activity::class, 'subject')->latest();
+        return $this->morphMany(Activity::class, 'subject');
+    }
+
+    /**
+     * Determine the activity type.
+     *
+     * @param  string $event
+     * @return string
+     */
+    protected function getActivityType($event)
+    {
+        $type = strtolower((new \ReflectionClass($this))->getShortName());
+
+        return "{$event}_{$type}";
     }
 }

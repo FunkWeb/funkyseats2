@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Activity;
 use App\Models\Checkin;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -93,6 +94,13 @@ trait CanCheckin
     private function check_out($forced = null)
     {
         $this->setCheckedOut();
+
+        Activity::create([
+            'user_id' => auth()->id(),
+            'subject_type' => 'App\Models\Checkin',
+            'subject_id' => $this->latest_checkin()->id,
+            'type' => 'checked_out'
+        ]);
 
         return $this->latest_checkin()->update([
             'checkout_at' => now(),

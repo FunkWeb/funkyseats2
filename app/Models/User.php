@@ -61,6 +61,11 @@ class User extends Authenticatable
         ]);
     }
 
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
     public function getLastOnlineAttribute()
     {
         if(Cache::has('user-last-activity-'. $this->id)) {

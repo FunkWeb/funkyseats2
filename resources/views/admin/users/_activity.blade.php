@@ -8,11 +8,11 @@
     </tr>
     </thead>
     <tbody>
-{{--    @foreach($foo as $bar)--}}
-{{--        <tr>--}}
-{{--            <td></td>--}}
-{{--            <td></td>--}}
-{{--        </tr>--}}
-{{--    @endforeach--}}
+    @foreach($activities as $activity)
+        <tr>
+            <td>{{ $activity->created_at }}</td>
+            <td>@include('admin.users.activities.' . $activity->type)</td>
+        </tr>
+    @endforeach
     </tbody>
 </table>
