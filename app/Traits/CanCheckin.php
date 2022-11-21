@@ -33,16 +33,16 @@ trait CanCheckin
             return $this->check_in();
         }
 
-        /*
-         * If user checked out less than five minutes ago and checks in again, remove the checkout time instead
-         */
-        if ($checkin->checkout_at > Carbon::now()->subMinutes(5)) {
-            $this->setCheckedIn();
-
-            flash()->warning('Du sjekket ut for mindre enn fem minutter siden, du ble sjekket inn igjen');
-
-            return $checkin->update(['checkout_at' => null]);
-        }
+//        /*
+//         * If user checked out less than five minutes ago and checks in again, remove the checkout time instead
+//         */
+//        if ($checkin->checkout_at > Carbon::now()->subMinutes(5)) {
+//            $this->setCheckedIn();
+//
+//            flash()->warning('Du sjekket ut for mindre enn fem minutter siden, du ble sjekket inn igjen');
+//
+//            return $checkin->update(['checkout_at' => null]);
+//        }
 
         /*
          * If previous checkin was checked out, create a new checkin record
@@ -53,16 +53,16 @@ trait CanCheckin
             return $this->check_in();
         }
 
-        /*
-         * If user checked in less than five minutes ago, just delete the checkin
-         */
-        if ($checkin->checkin_at > Carbon::now()->subMinutes(5)) {
-            $this->setCheckedOut();
-
-            flash()->warning('Du sjekket inn for mindre enn fem minutter siden. Oppføringen ble slettet.');
-
-            return $checkin->delete();
-        }
+//        /*
+//         * If user checked in less than five minutes ago, just delete the checkin
+//         */
+//        if ($checkin->checkin_at > Carbon::now()->subMinutes(5)) {
+//            $this->setCheckedOut();
+//
+//            flash()->warning('Du sjekket inn for mindre enn fem minutter siden. Oppføringen ble slettet.');
+//
+//            return $checkin->delete();
+//        }
 
         /*
          * Check out the user
@@ -91,12 +91,12 @@ trait CanCheckin
         ]);
     }
 
-    private function check_out($forced = null)
+    public function check_out($forced = null)
     {
         $this->setCheckedOut();
 
         Activity::create([
-            'user_id' => auth()->id(),
+            'user_id' => $this->id,
             'subject_type' => 'App\Models\Checkin',
             'subject_id' => $this->latest_checkin()->id,
             'type' => 'checked_out'
