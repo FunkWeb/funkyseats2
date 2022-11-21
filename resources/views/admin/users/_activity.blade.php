@@ -1,6 +1,6 @@
-<h4>Sist aktivitet</h4>
+<h4>Aktivitet siste 30 dager</h4>
 
-<table class="table table-striped">
+<table class="table table-striped" id="activities">
     <thead>
     <tr>
         <th>Tidspunkt</th>
@@ -16,3 +16,17 @@
     @endforeach
     </tbody>
 </table>
+
+<script type="text/javascript" class="init">
+    $(document).ready(function () {
+        $('#activities').DataTable({
+            "language": {
+                "url": "{{ asset('json/datatables/no-NB.json') }}"
+            }
+        });
+    });
+</script>
+
+@push('head')
+    <x-datatables></x-datatables>
+@endpush

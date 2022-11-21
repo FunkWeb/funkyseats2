@@ -20,7 +20,12 @@
                         {{ $checkin->checkin_at->translatedFormat('l d. F') }}
                     </span></td>
                 <td>{{ $checkin->checkin_at->format('H:i') }}</td>
-                <td>{{ $checkin->checkout_at ? $checkin->checkout_at->format('H:i') : '' }}</td>
+                <td>
+                    @if($checkin->checkout_at)
+                        {{ $checkin->checkout_at->format('H:i') }}
+                        {{ $checkin->forced_checkout ? '*' : ''}}
+                    @endif
+                </td>
                 <td>{{ intdiv($checkin->total_time, 60).':'. ($checkin->total_time % 60)  }}</td>
                 <td>
                     @if(!$checkin->checkout_at)
@@ -31,4 +36,5 @@
         @endforeach
         </tbody>
     </table>
+    <div>* Automatisk utsjekket</div>
 @endif

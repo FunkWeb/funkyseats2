@@ -40,7 +40,7 @@ class BookingController extends Controller
 
         try {
             Carbon::parse($date)->format('Y-m-d');
-        } catch (InvalidFormatException $_) {
+        } catch (InvalidFormatException) {
             flash()->error($date . ' er ikke en gyldig dato, bruker dagens dato i stedet.');
 
             return false;

@@ -31,7 +31,7 @@ Route::get('/callback/google', [GoogleController::class, 'googleCallback'])->nam
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
-        return view('welcome');
+        return redirect(route('users.show', auth()->user()));
     })->name('home');
 
     Route::post('togglecheckin', [\App\Http\Controllers\CheckinController::class, 'toggle'])
@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('book/{location}/{date?}', [\App\Http\Controllers\BookingController::class, 'index'])
         ->name('booking.index');
+
+    Route::get('users/{user}', [\App\Http\Controllers\Backend\UserController::class, 'show'])
+        ->name('users.show');
 });
 
 /**
@@ -72,6 +75,4 @@ Route::group(['middleware' => 'role:admin'], function () {
         ->name('admin.resources.edit');
     Route::patch('admin/location/{location}/resource/{resource}', [\App\Http\Controllers\Backend\ResourceController::class, 'update'])
         ->name('admin.resources.update');
-
-    Route::get('users/{user}', [\App\Http\Controllers\Backend\UserController::class, 'show'])->name('users.show');
 });

@@ -6,6 +6,7 @@
         <th>Plass</th>
         <th>Fra kl</th>
         <th>Til kl</th>
+        <th>Handlinger</th>
     </tr>
     </thead>
     <tbody>
@@ -14,24 +15,36 @@
         <td>Klasserommet - sete 4</td>
         <td>09:30</td>
         <td>15:00</td>
+        <td>
+            <button class="btn btn-warning">Fjern</button>
+        </td>
     </tr>
     <tr>
         <th>14.04.2022</th>
         <td>Klasserommet - sete 4</td>
         <td>09:30</td>
         <td>15:00</td>
+        <td>
+            <button class="btn btn-warning">Fjern</button>
+        </td>
     </tr>
     <tr>
         <th>15.04.2022</th>
         <td>Klasserommet - sete 4</td>
         <td>09:30</td>
         <td>15:00</td>
+        <td>
+            <button class="btn btn-warning">Fjern</button>
+        </td>
     </tr>
     <tr>
         <th>18.04.2022</th>
         <td>Klasserommet - sete 4</td>
         <td>09:30</td>
         <td>15:00</td>
+        <td>
+            <button class="btn btn-warning">Fjern</button>
+        </td>
     </tr>
     </tbody>
 </table>
