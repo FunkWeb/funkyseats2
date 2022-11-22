@@ -31,6 +31,11 @@ class Resource extends Model
         return $this->hasMany(Booking::class);
     }
 
+    public function bookingsByDate($date)
+    {
+        return $this->bookings()->where('date', $date)->with('bookings.user')->get();
+    }
+
     public function getStatusAttribute()
     {
         if (!$this->active) {

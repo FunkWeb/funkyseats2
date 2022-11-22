@@ -31,6 +31,12 @@ class BookingController extends Controller
             'period' => 'required',
         ]);
 
+        if(auth()->user()->hasReservation($request->date, $request->period)) {
+            flash()->error('Du har allerede reservert en plass i det tidspunktet!');
+
+            return back();
+        }
+
         if($resource->booked($request->date, $request->period)) {
             flash()->warning('Plassen er allerede reservert!');
 
@@ -51,7 +57,7 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         if(!$booking) {
-            flash()->danger('Ugyldig reservasjon!');
+            flash()->error('Ugyldig reservasjon!');
 
             return back();
         }

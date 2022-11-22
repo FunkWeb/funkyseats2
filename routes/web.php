@@ -79,4 +79,6 @@ Route::group(['middleware' => 'role:admin'], function () {
         ->name('admin.resources.edit');
     Route::patch('admin/location/{location}/resource/{resource}', [\App\Http\Controllers\Backend\ResourceController::class, 'update'])
         ->name('admin.resources.update');
+
+    Route::get('admin/location/{location}/bookings/{date}', [\App\Http\Controllers\Backend\LocationController::class, 'showBookings'])->name('location.bookings.show');
 });

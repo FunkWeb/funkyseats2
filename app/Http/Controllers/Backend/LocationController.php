@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Location;
+use App\Models\Resource;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -62,6 +63,15 @@ class LocationController extends Controller
         return view('admin.locations.show', [
             'location' => $location,
             'resources' => $location->resources->sortBy('name', SORT_NATURAL),
+        ]);
+    }
+
+    public function showBookings(Location $location, $date)
+    {
+        $resources = $location->resources()->bookingsByDate($date);
+
+        return view('admin.locations.bookings', [
+            'resources' => $resources,
         ]);
     }
 

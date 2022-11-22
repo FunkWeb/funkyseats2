@@ -22,4 +22,12 @@ trait CanMakeReservations
             ->get();
     }
 
+    public function hasReservation($date, $period)
+    {
+        return $this->bookings()
+            ->where('date', $date)
+            ->where('period', $period)
+            ->first();
+    }
+
 }
