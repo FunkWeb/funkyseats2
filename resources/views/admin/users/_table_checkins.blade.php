@@ -10,7 +10,7 @@
             <th>Sjekket inn kl.</th>
             <th>Sjekket ut kl.</th>
             <th>Total tid innsjekket</th>
-            <th>Handlinger</th>
+{{--            <th>Handlinger</th>--}}
         </tr>
         </thead>
         <tbody>
@@ -27,11 +27,11 @@
                     @endif
                 </td>
                 <td>{{ intdiv($checkin->total_time, 60).':'. ($checkin->total_time % 60)  }}</td>
-                <td>
-                    @if(!$checkin->checkout_at)
-                        <button type="submit" class="btn btn-warning">Sjekk ut</button>
-                    @endif
-                </td>
+{{--                <td>--}}
+{{--                    @if(!$checkin->checkout_at)--}}
+{{--                        <button type="submit" class="btn btn-warning">Sjekk ut</button>--}}
+{{--                    @endif--}}
+{{--                </td>--}}
             </tr>
         @endforeach
         </tbody>

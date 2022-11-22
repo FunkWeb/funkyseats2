@@ -20,7 +20,13 @@
                 </th>
                 <td class="align-middle">{{ $user->email }}</td>
                 <td class="align-middle">{{ $user->last_active_at }}</td>
-                <td class="align-middle"><span class="badge bg-success">Sjekket inn</span></td>
+                <td class="align-middle">
+                    @if($user->checked_in)
+                        <span class="badge bg-success">Sjekket inn</span>
+                    @else
+                        <span class="badge bg-warning">Sjekket ut</span>
+                    @endif
+                </td>
             </tr>
         @endforeach
         </tbody>

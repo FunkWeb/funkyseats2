@@ -20,9 +20,9 @@ trait RecordsActivity
             });
         }
 
-        static::deleting(function ($model) {
-            $model->activity()->delete();
-        });
+//        static::deleting(function ($model) {
+//            $model->activity()->delete();
+//        });
 
 //        static::restoring(function ($model) {
 //            $model->activity()->restore();

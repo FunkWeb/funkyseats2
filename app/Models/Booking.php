@@ -13,6 +13,11 @@ class Booking extends Model
 
     protected $guarded = [];
 
+    protected static function getActivitiesToRecord()
+    {
+        return ['created', 'deleted'];
+    }
+
     public function resource()
     {
         return $this->belongsTo(Resource::class);

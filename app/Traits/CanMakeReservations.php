@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use App\Models\Booking;
-use App\Models\Resource;
 
 trait CanMakeReservations
 {
@@ -13,19 +12,14 @@ trait CanMakeReservations
         return $this->hasMany(Booking::class);
     }
 
-    public function getCurrentReservationAttribute()
+    public function upcomingBookings()
     {
-
-    }
-
-    public function bookResource(Resource $resource, $date)
-    {
-
-    }
-
-    public function releaseResource(Resource $resource)
-    {
-
+        return $this->bookings()
+            ->whereDate('date', '>=', date('Y-m-d'))
+            ->with('resource')
+            ->with('resource.location')
+            ->orderBy('date', 'asc')
+            ->get();
     }
 
 }

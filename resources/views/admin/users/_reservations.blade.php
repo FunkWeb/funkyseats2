@@ -4,47 +4,26 @@
     <tr>
         <th>Dato</th>
         <th>Plass</th>
-        <th>Fra kl</th>
-        <th>Til kl</th>
+        <th>Periode</th>
         <th>Handlinger</th>
     </tr>
     </thead>
     <tbody>
+    @foreach($bookings as $booking)
     <tr>
-        <th>13.04.2022</th>
-        <td>Klasserommet - sete 4</td>
-        <td>09:30</td>
-        <td>15:00</td>
+        <th>{{ $booking->date }}</th>
+        <td>{{ $booking->resource->location->name }} - {{ $booking->resource->name }}</td>
+        <td>{{ $booking->period }}</td>
         <td>
-            <button class="btn btn-warning">Fjern</button>
+            <form method="post" action="{{ route('booking.destroy', $booking) }}">
+                @csrf
+                @method('delete')
+                <input type="hidden" name="period" value="{{ $booking->period }}">
+                <input type="hidden" name="date" value="{{ $booking->date }}">
+                <button type="submit" class="btn btn-warning w-100">Fjern</button>
+            </form>
         </td>
     </tr>
-    <tr>
-        <th>14.04.2022</th>
-        <td>Klasserommet - sete 4</td>
-        <td>09:30</td>
-        <td>15:00</td>
-        <td>
-            <button class="btn btn-warning">Fjern</button>
-        </td>
-    </tr>
-    <tr>
-        <th>15.04.2022</th>
-        <td>Klasserommet - sete 4</td>
-        <td>09:30</td>
-        <td>15:00</td>
-        <td>
-            <button class="btn btn-warning">Fjern</button>
-        </td>
-    </tr>
-    <tr>
-        <th>18.04.2022</th>
-        <td>Klasserommet - sete 4</td>
-        <td>09:30</td>
-        <td>15:00</td>
-        <td>
-            <button class="btn btn-warning">Fjern</button>
-        </td>
-    </tr>
+    @endforeach
     </tbody>
 </table>

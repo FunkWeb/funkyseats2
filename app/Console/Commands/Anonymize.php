@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Activity;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;

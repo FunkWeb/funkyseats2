@@ -23,11 +23,8 @@
             "language": {
                 "url": "{{ asset('json/datatables/no-NB.json') }}"
             },
-            order: [[1, 'desc']],
+            order: [[0, 'desc']],
         });
     });
 </script>
 
-@push('head')
-    <x-datatables></x-datatables>
-@endpush

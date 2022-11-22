@@ -1,0 +1,1 @@
+Fjernet en reservasjon

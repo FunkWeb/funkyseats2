@@ -24,4 +24,8 @@
         </div>
     </div>
 
+    @push('head')
+        <x-datatables></x-datatables>
+    @endpush
+
 </x-app-layout>
