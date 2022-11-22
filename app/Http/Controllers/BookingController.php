@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Location;
 use App\Models\Resource;
 use Carbon\Carbon;
@@ -21,6 +22,45 @@ class BookingController extends Controller
             'nextdays' => $this->nextSevenDays(),
 //            'bookings' => $location->resources->bookings->whereBetween(now(), now()->addDay()),
         ]);
+    }
+
+    public function store(Resource $resource, Request $request)
+    {
+        $request->validate([
+            'date' => 'required',
+            'period' => 'required',
+        ]);
+
+        if($resource->booked($request->date, $request->period)) {
+            flash()->warning('Plassen er allerede reservert!');
+
+            return back();
+        }
+
+        auth()->user()->bookings()->create([
+            'resource_id' => $resource->id,
+            'period' => $request->period,
+            'date' => $request->date,
+        ]);
+
+        flash()->success('Du har reservert plassen!');
+
+        return back();
+    }
+
+    public function destroy(Booking $booking)
+    {
+        if(!$booking) {
+            flash()->danger('Ugyldig reservasjon!');
+
+            return back();
+        }
+
+        $booking->delete();
+
+        flash()->success('Du har slettet reservasjonen!');
+
+        return back();
     }
 
     private function setDate($date = null): string

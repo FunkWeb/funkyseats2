@@ -29,7 +29,7 @@
             <th class="d-none d-lg-table-cell">Beskrivelse</th>
             <th class="text-center">0830-1200</th>
             <th class="text-center">1200-1530</th>
-            <th class="text-center">Hele dagen</th>
+{{--            <th class="text-center">Hele dagen</th>--}}
         </tr>
         </thead>
         <tbody>
@@ -39,34 +39,38 @@
                 <td class="d-none d-lg-table-cell">{{ $resource->description }}</td>
                 <td>
                     @if($resource->active)
-                        <form method="post">
-                            @csrf
-                            <button class="btn btn-success w-100">Reserver</button>
-                        </form>
+                            <?php $booked = $resource->booked($date, '1') ?>
+                        @if($resource->booked($date, '1'))
+                            @include('booking.button.occupied', ['period' => '1', 'booked' => $booked])
+                        @else
+                            @include('booking.button.available', ['period' => '1'])
+                        @endif
                     @else
-                        <button class="btn btn-warning w-100 disabled">Ikke tilgjengelig</button>
+                        @include('booking.button.unavaiable')
                     @endif
                 </td>
                 <td>
                     @if($resource->active)
-                        <form method="post">
-                            @csrf
-                            <button class="btn btn-success w-100">Reserver</button>
-                        </form>
+                        <?php $booked = $resource->booked($date, '2') ?>
+                        @if($booked)
+                            @include('booking.button.occupied', ['period' => '2', 'booked' => $booked])
+                        @else
+                            @include('booking.button.available', ['period' => '2'])
+                        @endif
                     @else
-                        <button class="btn btn-warning w-100 disabled">Ikke tilgjengelig</button>
+                        @include('booking.button.unavaiable')
                     @endif
                 </td>
-                <td>
-                    @if($resource->active)
-                        <form method="post">
-                            @csrf
-                            <button class="btn btn-success w-100">Reserver</button>
-                        </form>
-                    @else
-                        <button class="btn btn-warning w-100 disabled">Ikke tilgjengelig</button>
-                    @endif
-                </td>
+{{--                <td>--}}
+{{--                    @if($resource->active)--}}
+{{--                        <form method="post">--}}
+{{--                            @csrf--}}
+{{--                            <button class="btn btn-success w-100">Reserver</button>--}}
+{{--                        </form>--}}
+{{--                    @else--}}
+{{--                        <button class="btn btn-warning w-100 disabled">Ikke tilgjengelig</button>--}}
+{{--                    @endif--}}
+{{--                </td>--}}
             </tr>
         @endforeach
         </tbody>

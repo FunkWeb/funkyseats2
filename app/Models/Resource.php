@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\RecordsActivity;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -37,4 +39,13 @@ class Resource extends Model
 
         return 'Tilgjengelig';
     }
+
+    public function booked($date, $period)
+    {
+        return $this->bookings()
+            ->where('date', $date)
+            ->where('period', $period)
+            ->first();
+    }
+
 }

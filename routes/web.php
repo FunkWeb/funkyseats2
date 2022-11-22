@@ -39,6 +39,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('book/{location}/{date?}', [\App\Http\Controllers\BookingController::class, 'index'])
         ->name('booking.index');
+    Route::post('book/{resource}', [\App\Http\Controllers\BookingController::class, 'store'])
+        ->name('booking.store');
+    Route::delete('book/{booking}', [\App\Http\Controllers\BookingController::class, 'destroy'])
+        ->name('booking.destroy');
 
     Route::get('users/{user}', [\App\Http\Controllers\Backend\UserController::class, 'show'])
         ->name('users.show');

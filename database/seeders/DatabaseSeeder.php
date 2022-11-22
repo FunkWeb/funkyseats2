@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Location;
 use App\Models\ResourceType;
 use App\Models\Role;
 use Illuminate\Database\Seeder;
@@ -17,7 +18,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Role::create(['name' => 'admin', 'description' => 'Administrator']);
-        Role::create(['name' => 'employee', 'description' => 'Ansatt']);
         Role::create(['name' => 'student', 'description' => 'Deltaker']);
 
         ResourceType::create(['name' => 'Plass', 'description' => 'Kontorplass']);

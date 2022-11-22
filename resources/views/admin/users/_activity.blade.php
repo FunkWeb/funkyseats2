@@ -22,7 +22,8 @@
         $('#activities').DataTable({
             "language": {
                 "url": "{{ asset('json/datatables/no-NB.json') }}"
-            }
+            },
+            order: [[1, 'desc']],
         });
     });
 </script>
