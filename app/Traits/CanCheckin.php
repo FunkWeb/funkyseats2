@@ -33,17 +33,6 @@ trait CanCheckin
             return $this->check_in();
         }
 
-//        /*
-//         * If user checked out less than five minutes ago and checks in again, remove the checkout time instead
-//         */
-//        if ($checkin->checkout_at > Carbon::now()->subMinutes(5)) {
-//            $this->setCheckedIn();
-//
-//            flash()->warning('Du sjekket ut for mindre enn fem minutter siden, du ble sjekket inn igjen');
-//
-//            return $checkin->update(['checkout_at' => null]);
-//        }
-
         /*
          * If previous checkin was checked out, create a new checkin record
          */
@@ -52,17 +41,6 @@ trait CanCheckin
 
             return $this->check_in();
         }
-
-//        /*
-//         * If user checked in less than five minutes ago, just delete the checkin
-//         */
-//        if ($checkin->checkin_at > Carbon::now()->subMinutes(5)) {
-//            $this->setCheckedOut();
-//
-//            flash()->warning('Du sjekket inn for mindre enn fem minutter siden. Oppføringen ble slettet.');
-//
-//            return $checkin->delete();
-//        }
 
         /*
          * Check out the user
@@ -99,7 +77,7 @@ trait CanCheckin
             'user_id' => $this->id,
             'subject_type' => 'App\Models\Checkin',
             'subject_id' => $this->latest_checkin()->id,
-            'type' => 'checked_out'
+            'type' => $forced ? 'checked_out_forced' : 'checked_out',
         ]);
 
         return $this->latest_checkin()->update([
@@ -110,7 +88,7 @@ trait CanCheckin
 
     private function setCheckedIn($hours = 10)
     {
-        $expiresAt = Carbon::now()->addHours($hours);
+        $expiresAt = now()->copy()->addHours($hours);
 
         Cache::put('user-checkin-' . $this->id, true, $expiresAt);
     }
