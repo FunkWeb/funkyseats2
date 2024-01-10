@@ -21,7 +21,7 @@ class Anonymize extends Command
      *
      * @var string
      */
-    protected $description = 'Anonymize users that haven\'t been active in 90 days';
+    protected $description = 'Anonymize users that haven\'t been active in 30 days';
 
     /**
      * Execute the console command.
@@ -30,13 +30,11 @@ class Anonymize extends Command
      */
     public function handle()
     {
-        $users = User::where('last_active_at', '<', Carbon::now()->subDays(90))->get();
+        $users = User::where('last_active_at', '<', Carbon::now()->subDays(30))->get();
 
         foreach($users as $user) {
             $user->anonymize();
         }
-
-        dd($users);
 
         return 0;
     }

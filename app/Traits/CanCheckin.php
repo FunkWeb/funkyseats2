@@ -62,6 +62,13 @@ trait CanCheckin
 
     private function check_in()
     {
+        // Validate that the user is from a valid IP address
+        if (!in_array(request()->ip(), config('company.valid_ips'))) {
+            flash()->error('Du kan ikke sjekke inn fra denne IP-adressen.');
+
+            return false;
+        }
+
         $this->setCheckedIn();
 
         return $this->checkins()->create([
@@ -73,6 +80,12 @@ trait CanCheckin
     {
         $this->setCheckedOut();
 
+        if($forced) {
+            $checout_at = now()->subMinutes(30);
+        } else {
+            $checout_at = now();
+        }
+
         Activity::create([
             'user_id' => $this->id,
             'subject_type' => 'App\Models\Checkin',
@@ -81,7 +94,7 @@ trait CanCheckin
         ]);
 
         return $this->latest_checkin()->update([
-            'checkout_at' => now(),
+            'checkout_at' => $checout_at,
             'forced_checkout' => $forced
         ]);
     }

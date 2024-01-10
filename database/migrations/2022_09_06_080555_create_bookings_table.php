@@ -22,6 +22,7 @@ return new class extends Migration
 //            $table->unsignedBigInteger('booked_by'); // User ID of person who performed the booking
 //            $table->timestamp('time_from');
 //            $table->timestamp('time_to');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

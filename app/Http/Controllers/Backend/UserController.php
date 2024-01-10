@@ -26,7 +26,9 @@ class UserController extends Controller
         return view('admin.users.show', [
             'user' => $user,
             'latest_checkins' => $user->checkins()->latest()->limit(10)->get(),
-            'activities' => $user->activities()->where('created_at', '>', now()->subDays(30))->latest()->get(),
+            'activities' => $user->activities()->where('created_at', '>', now()->subDays(30))
+                ->with('subject')
+                ->latest()->get(),
             'bookings' => $user->upcomingBookings(),
         ]);
     }

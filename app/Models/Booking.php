@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Booking extends Model
 {
-    use HasFactory, RecordsActivity;
+    use HasFactory, RecordsActivity, SoftDeletes;
 
     protected $guarded = [];
 

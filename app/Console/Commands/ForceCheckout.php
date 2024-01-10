@@ -30,18 +30,7 @@ class ForceCheckout extends Command
      */
     public function handle()
     {
-//        $checkins = Checkin::where('checkout_at', NULL)->get();
-//
-//        foreach($checkins as $checkin) {
-//            $checkin->update([
-//                'checkout_at' => now(),
-//                'forced_checkout' => true,
-//            ]);
-//        }
-
-        $users = User::all();
-
-        foreach($users as $user) {
+        foreach(User::all() as $user) {
             if($user->checkedIn) {
                 $user->check_out(true);
             }

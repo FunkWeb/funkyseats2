@@ -1,1 +1,1 @@
-Sjekket ut
+Sjekket ut (total tid: {{ $activity->subject->totalTime }} minutter)
